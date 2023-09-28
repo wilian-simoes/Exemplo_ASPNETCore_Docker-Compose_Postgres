@@ -1,0 +1,22 @@
+﻿@TestPostgreSqlApi_HostAddress = https://localhost:7211
+@UriDocker = http://localhost:20000
+
+
+POST {{UriDocker}}/api/cliente/Cadastrar
+Content-Type: application/json
+
+{
+    "Nome": "Wilian",
+    "Email": "teste@teste.com",
+    "Telefone": "123456789"
+}
+
+###
+
+GET {{UriDocker}}/api/cliente/Obter/ea791ca6-da8b-44b5-a3b6-685f7ac77979
+
+###
+
+GET {{UriDocker}}/api/cliente/Listar
+
+###

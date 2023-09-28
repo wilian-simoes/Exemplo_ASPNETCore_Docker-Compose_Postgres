@@ -1,0 +1,45 @@
+﻿version: '3.8'
+
+services:
+  testpostgresqlapi:
+    image: testpostgresqlapi
+    build:
+      context: .
+    ports:
+      - "20000:80"
+    networks:
+      - testpostgresqlapi-network
+    depends_on:
+      - "redistestpostgresqlapi"
+      - "db"
+
+  redistestpostgresqlapi:
+    image: redis:alpine
+    ports:
+      - "16379:6379"
+    networks:
+      - testpostgresqlapi-network
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "TestPostgres123"
+      POSTGRES_DB: testdb
+    ports:
+      - '5432:5432'
+    networks:
+      - testpostgresqlapi-network
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - testpostgresqlapi-network
+
+networks: 
+    testpostgresqlapi-network:
+        driver: bridge
